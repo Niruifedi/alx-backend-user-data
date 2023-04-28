@@ -3,6 +3,7 @@
 Filtered logger
 """
 import re
+import bcrypt
 import logging
 from typing import List
 import mysql.connector
@@ -90,3 +91,10 @@ def main() -> None:
         print(row[0])
     cursor.close()
     db.close()
+
+
+def hash_password(password: str) -> str:
+    """
+    hash_password method for RedactingFormatter class
+    """
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
