@@ -77,3 +77,16 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         user=username,
         password=password
     )
+
+
+def main() -> None:
+    """
+    main method for RedactingFormatter class
+    """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT COUNT(*) FROM users;")
+    for row in cursor:
+        print(row[0])
+    cursor.close()
+    db.close()
