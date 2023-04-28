@@ -5,7 +5,7 @@ Encrypting passwords
 import bcrypt
 
 
-def hash_password(password: str) -> str:
+def hash_password(password: str) -> bytes:
     """
     hash_password method for RedactingFormatter class
     """
