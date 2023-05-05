@@ -23,13 +23,15 @@ class Auth():
             return True
 
         # deletes the trailing slash to compare strings
-        path = path.rstrip('/')
-
-        for ex_path in excluded_paths:
-            if ex_path.rstrip("/") == path:
+        for i in excluded_paths:
+            if i.startswith(path):
                 return False
-            else:
-                return True
+            if path.startswith(i):
+                return False
+            if i[-1] == "*":
+                if path.startswith(i[:-1]):
+                    return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """
