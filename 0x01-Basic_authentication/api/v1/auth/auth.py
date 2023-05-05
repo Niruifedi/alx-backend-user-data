@@ -17,7 +17,19 @@ class Auth():
         public method to get authentication
         returns false
         """
-        return False
+        if not excluded_paths:
+            return True
+        if not path:
+            return True
+
+        # deletes the trailing slash to compare strings
+        path = path.rstrip('/')
+
+        for ex_path in excluded_paths:
+            if ex_path.rstrip("/") == path:
+                return False
+            else:
+                return True
 
     def authorization_header(self, request=None) -> str:
         """
