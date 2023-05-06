@@ -20,6 +20,7 @@ if AUTH_TYPE == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
 
+
 @app.before_request
 def before_request_call():
     """
@@ -29,14 +30,15 @@ def before_request_call():
         pass
     else:
         ex_paths = ['/api/v1/status/',
-                 '/api/v1/unauthorized/',
-                 '/api/v1/forbidden/']
-        
+                    '/api/v1/unauthorized/',
+                    '/api/v1/forbidden/']
+
         if auth.require_auth(request.path, ex_paths):
             if auth.authorization_header(request) is None:
                 abort(401, description="Unauthorized")
         if auth.current_user(request) is None:
             abort(403, description="Forbidden")
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
