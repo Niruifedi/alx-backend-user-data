@@ -22,7 +22,6 @@ class Auth():
         if not path:
             return True
 
-        # deletes the trailing slash to compare strings
         for i in excluded_paths:
             if i.startswith(path):
                 return False
@@ -37,7 +36,14 @@ class Auth():
         """
         public method for auth header
         """
-        return request
+        if request is None:
+            return None
+
+        if "Authorization" not in request.headers:
+            return None
+        else:
+            return request.headers.get("Authorization")
+
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
