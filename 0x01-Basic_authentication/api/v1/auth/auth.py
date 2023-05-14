@@ -17,35 +17,36 @@ class Auth():
         public method to get authentication
         returns false
         """
-        if not excluded_paths:
+        if path is None:
             return True
-        if not path:
+        elif excluded_paths is None or excluded_paths == []:
             return True
-
-        for i in excluded_paths:
-            if i.startswith(path):
-                return False
-            if path.startswith(i):
-                return False
-            if i[-1] == "*":
-                if path.startswith(i[:-1]):
+        elif path in excluded_paths:
+            return False
+        else:
+            for i in excluded_paths:
+                if i.startswith(path):
                     return False
+                if path.startswith(i):
+                    return False
+                if i[-1] == "*":
+                    if path.startswith(i[:-1]):
+                        return False
         return True
 
     def authorization_header(self, request=None) -> str:
         """
-        public method for auth header
+        Returns the authorization header from a request object
         """
         if request is None:
             return None
-
-        if "Authorization" not in request.headers:
+        header = request.headers.get('Authorization')
+        if header is None:
             return None
-        else:
-            return request.headers.get("Authorization")
+        return header
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
-        public method for current user authenticated
+        Returns a User instance from information from a request object
         """
-        return request
+        return None
