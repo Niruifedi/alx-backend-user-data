@@ -35,7 +35,7 @@ class SessionAuth(Auth):
         if not isinstance(session_id, str):
             return None
         return str(self.user_id_by_session_id.get(session_id))
-    
+
     def current_user(self, request=None):
         """
         retrieves and identify user with session id created
