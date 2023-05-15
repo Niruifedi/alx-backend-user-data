@@ -2,9 +2,7 @@
 """
 Session Auth Module
 """
-import base64
 from .auth import Auth
-from typing import TypeVar
 from models.user import User
 from uuid import uuid4
 
@@ -36,4 +34,10 @@ class SessionAuth(Auth):
             return None
         if not isinstance(session_id, str):
             return None
-        return self.user_id_by_session_id.get(session_id)
+        return str(self.user_id_by_session_id.get(session_id))
+    
+    def current_user(self, request=None):
+        session_cookie = self.session_cookie(request)
+        user_id = self.user_id_for_session_id(session_cookie)
+        user = User.get(user_id)
+        return user
