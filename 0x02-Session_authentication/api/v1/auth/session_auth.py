@@ -37,6 +37,9 @@ class SessionAuth(Auth):
         return str(self.user_id_by_session_id.get(session_id))
     
     def current_user(self, request=None):
+        """
+        retrieves and identify user with session id created
+        """
         session_cookie = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_cookie)
         user = User.get(user_id)
