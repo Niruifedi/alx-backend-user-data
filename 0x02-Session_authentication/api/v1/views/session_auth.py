@@ -2,7 +2,7 @@
 """
 Module for session Auth views
 """
-from flask import jsonify, request
+from flask import jsonify, request, abort
 import os
 from api.v1.views import app_views
 from models.user import User
