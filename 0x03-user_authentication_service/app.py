@@ -57,6 +57,7 @@ def login() -> str:
     resp.set_cookie("session_id", session_id)
     return resp
 
+
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
 def logout():
     """
